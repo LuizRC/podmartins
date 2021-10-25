@@ -77,7 +77,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
               <th>Integrantes</th>
               <th>Data</th>
               <th>Duração</th>
-              <th></th>string
+              <th></th>
             </tr>
           </thead>
           <tbody>

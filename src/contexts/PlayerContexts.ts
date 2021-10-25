@@ -12,7 +12,10 @@ type Episode = {
 type PlayerContextData = {
     episodeList: Episode[];
     currentEpisodeIndex: number;
+    isPlaying: boolean;
     play: (episode: Episode) => void;
+    tooglePlay: () => void;
+    setIsPlayingState: (state : boolean) => void;
 
 };
 
