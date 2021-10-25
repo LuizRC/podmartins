@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,12 +9,14 @@ import { convertDurationToTimeString } from '../utils/convertDurationToTimeStrin
 
 import style from './home.module.scss';
 
+import { PlayerContext } from '../contexts/PlayerContexts';
+
 type Episode = {
   id: string;
   title: string;
   thumbnail: string;
   members: string;
-  duration: string;
+  duration: number;
   durationAsString: string;
   url: string;
   publishedAt: string;
@@ -25,12 +28,13 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const {play} = useContext(PlayerContext)
 
 
   return (
     <div className={style.homePage}>
       <section className={style.latestEpisodes}>
-        <h2>Últimos Lançamentos</h2>
+        <h2>Últimos Lançamentos {play}</h2>
         <ul>
           {latestEpisodes.map(episode => {
             return (
@@ -52,7 +56,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type='button'>
+                <button type='button' onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Tocar episódio" />
                 </button>
 
@@ -73,7 +77,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
               <th>Integrantes</th>
               <th>Data</th>
               <th>Duração</th>
-              <th></th>
+              <th></th>string
             </tr>
           </thead>
           <tbody>
@@ -98,7 +102,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <td style={{ width: 100 }}>{episode.publishedAt}</td>
                   <td>{episode.durationAsString}</td>
                   <td>
-                    <button type='button'>
+                    <button type='button' onClick={() => play(episode)}>
                       <img src="/play-green.svg" alt="Tocar Episodio" />
                     </button>
                   </td>
