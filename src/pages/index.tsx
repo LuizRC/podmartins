@@ -1,6 +1,6 @@
-import { useContext } from 'react';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Head from 'next/head';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { api } from "../services/api";
@@ -9,7 +9,7 @@ import { convertDurationToTimeString } from '../utils/convertDurationToTimeStrin
 
 import style from './home.module.scss';
 
-import { PlayerContext } from '../contexts/PlayerContexts';
+import { usePlayer } from '../contexts/PlayerContexts';
 
 type Episode = {
   id: string;
@@ -28,13 +28,16 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const {playList} = useContext(PlayerContext);
+  const {playList} = usePlayer();
 
   const episodeList = [...latestEpisodes, ...allEpisodes];
 
 
   return (
     <div className={style.homePage}>
+      <Head>
+        <title>Home | PodMartins</title>
+      </Head>
       <section className={style.latestEpisodes}>
         <h2>Últimos Lançamentos </h2>
         <ul>
